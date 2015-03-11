@@ -1,11 +1,12 @@
 module Externallink
   module ViewHelpers
     def external_url?(url)
-      request.host != URI(url).host
+      !internal_url?(url)
     end
 
     def internal_url?(url)
-      request.host == URI(url).host
+      url_host = URI(url).host
+      url_host.nil? || request.host == url_host
     end
   end
 end
